@@ -1,0 +1,31 @@
+// Async with call back
+
+const { readFile, writeFile } = require("fs");
+
+readFile("./content/subfolder/first.txt", "utf-8", (err, res) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  const first = res;
+
+  readFile("./content/subfolder/second.txt", "utf-8", (err, res) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const second = res;
+
+    writeFile(
+      "./content/subfolder/result.txt",
+      `Hello : ${first}, ${second}`,
+      (err, res) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log(res);
+      }
+    );
+  });
+});
